@@ -1,15 +1,13 @@
 import React from "react";
-import { auth, provider, signInWithPopup } from "../../firebase";
+import { signInWithGoogle } from '../../firebase';
 
 const Login = ( {setUser} ) => {
-  const handleGoogleSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      setUser(user)
-      console.log("User Info:", user);
-    } catch (error) {
-      console.error("Error during sign-in:", error);
+  
+
+  const handleSignIn = async () => {
+    const user = await signInWithGoogle();
+    if (user) {
+      setUser(user);
     }
   };
 
@@ -20,8 +18,8 @@ const Login = ( {setUser} ) => {
           Sign In With
         </h2>
         <div className="flex justify-center mb-8">
-          <button onClick={handleGoogleSignIn} className="bg-red-600 text-white rounded-lg px-4 py-2 w-max">
-            Google
+          <button onClick={handleSignIn} className="bg-red-600 text-white rounded-lg px-4 py-2 w-max">
+          Sign in with Google
           </button>
         </div>
         <form>
